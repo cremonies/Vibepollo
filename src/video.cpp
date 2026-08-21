@@ -2412,6 +2412,7 @@ namespace video {
     {
       // Common options
       {
+        {"low_power"s, 1},
         {"async_depth"s, 1},
         {"idr_interval"s, std::numeric_limits<int>::max()},
       },
@@ -2419,12 +2420,16 @@ namespace video {
       {},  // HDR-specific options
       {},  // YUV444 SDR-specific options
       {},  // YUV444 HDR-specific options
-      {},  // Fallback options
+      {
+        // Fallback options
+        {"low_power"s, 0},  // Not all VAAPI drivers expose LP entrypoints
+      },
       "av1_vaapi"s,
     },
     {
       // Common options
       {
+        {"low_power"s, 1},
         {"async_depth"s, 1},
         {"sei"s, 0},
         {"idr_interval"s, std::numeric_limits<int>::max()},
@@ -2433,12 +2438,16 @@ namespace video {
       {},  // HDR-specific options
       {},  // YUV444 SDR-specific options
       {},  // YUV444 HDR-specific options
-      {},  // Fallback options
+      {
+        // Fallback options
+        {"low_power"s, 0},  // Not all VAAPI drivers expose LP entrypoints
+      },
       "hevc_vaapi"s,
     },
     {
       // Common options
       {
+        {"low_power"s, 1},
         {"async_depth"s, 1},
         {"sei"s, 0},
         {"idr_interval"s, std::numeric_limits<int>::max()},
@@ -2447,7 +2456,10 @@ namespace video {
       {},  // HDR-specific options
       {},  // YUV444 SDR-specific options
       {},  // YUV444 HDR-specific options
-      {},  // Fallback options
+      {
+        // Fallback options
+        {"low_power"s, 0},  // Not all VAAPI drivers expose LP entrypoints
+      },
       "h264_vaapi"s,
     },
     // RC buffer size will be set in platform code if supported
