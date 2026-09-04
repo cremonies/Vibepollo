@@ -5381,7 +5381,7 @@ launch_session->exact_target_hold.reset();
                            << guard_threshold.count() << "s";
 
           tree.put("root.resume", 0);
-          tree.put("root.<xmlattr>.status_code", 503);
+          tree.put("root.<xmlattr>.status_code", 400);
           tree.put("root.<xmlattr>.status_message", "Host is currently in local use. Please try again shortly.");
 
           return;
