@@ -32,6 +32,7 @@
 #include "src/steam_controller_protocol.h"
 #include "src/utility.h"
 #include "vhf_gamepad.h"
+#include "local_input_monitor.h"
 #include "dualsense_haptics.h"
 #include "vhf_gamepad_policy.h"
 #include "vhf_gamepad_recovery.h"
@@ -424,6 +425,7 @@ namespace platf {
     template<class Request>
     bool submit_keyboard_mouse_locked(const Request &request) {
       if (!keyboard_mouse_owned || keyboard_mouse_faulted || recovery.pending()) return false;
+      local_input_monitor::note_host_input();
       const DWORD status = vhf_keyboard_mouse::submit_with_backpressure(
         [&] { return client.submit_keyboard_mouse(request); },
         [] { std::this_thread::sleep_for(1ms); }, ERROR_BUSY);

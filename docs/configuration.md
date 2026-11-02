@@ -5327,6 +5327,28 @@ Enables collection of the host and session statistics shown by the real-time sta
 
 Sets the real-time statistics polling interval in milliseconds. Lower values refresh the dashboard more frequently.
 
+### local_activity_guard_seconds
+
+Windows only. Refuses a new launch request, or a request for a different
+application while one is running, if someone has used the host's keyboard, mouse
+or a controller within this many seconds, so a remote client does not take over
+a display that is in use. The value ranges from `0` to `3600`. The default is
+`5`; `0` disables the guard. Resuming the application that is already running,
+and input-only sessions, are never refused. The client receives the message
+"Host is currently in local use. Please try again shortly."
+
+The guard installs no keyboard or mouse hooks and cannot see which keys are
+pressed or where the pointer is. For keyboard and mouse it reads only the time of
+the most recent input in the current Windows session (`GetLastInputInfo`) and
+compares it with the host's own deliveries of remote input, so a stream is not
+mistaken for local use. Controllers are polled through XInput and counted only
+while no stream is active.
+
+Limits: input from other software in the same Windows session, such as macros or
+other remote-desktop tools, is indistinguishable from local input. While remote
+input is flowing, physical keyboard and mouse input within about half a second of
+each delivery cannot be told apart from it.
+
 ### rtx_hdr
 
 Enables RTX HDR processing when the active NVIDIA environment supports it.

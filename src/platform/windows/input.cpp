@@ -22,6 +22,7 @@
 
 // local includes
 #include "keylayout.h"
+#include "local_input_monitor.h"
 #include "misc.h"
 #include "src/config.h"
 #include "src/globals.h"
@@ -612,6 +613,7 @@ namespace platf {
    * @param i The `INPUT` struct to send.
    */
   void send_input(INPUT &i) {
+    local_input_monitor::note_host_input();
     if (SendInput(1, &i, sizeof(INPUT)) == 1) {
       return;
     }
@@ -643,6 +645,7 @@ namespace platf {
    * @return true if input was successfully injected.
    */
   bool inject_synthetic_pointer_input(input_raw_t *input, HSYNTHETICPOINTERDEVICE device, const POINTER_TYPE_INFO *pointerInfo, UINT32 count) {
+    local_input_monitor::note_host_input();
     if (input->fnInjectSyntheticPointerInput(device, pointerInfo, count)) {
       return true;
     }
